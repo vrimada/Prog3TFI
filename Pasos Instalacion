@@ -1,0 +1,10 @@
+Pasos para la creacion del package.json
+npm init --> cuando pregunta el "type" poner "module" (al usar import nos podria dar error Cannot use import statement outside a module)
+npm install
+npm install express
+npm install mysql2
+En index.js exportamos express
+
+
+Primer entrega:
+Tener hecho un CRUD completo de alguna tabla especialidad/paciente/medico
