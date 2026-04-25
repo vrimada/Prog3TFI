@@ -1,5 +1,7 @@
 import express from "express";
 const app  = express();
+import { pool } from "./db/conexion.js"; 
+
 
 process.loadEnvFile(); //carga las variables de entorno desde un archivo .env, si existe. Esto es útil para configurar la aplicacion sin tener que modificar el codigo, por ejemplo, para cambiar el puerto o la base de datos.
 app.use(express.json()); //middleware para parsear el cuerpo de las solicitudes en formato JSON, es decir, convierte el cuerpo de la solicitud en un objeto JavaScript que se puede usar en el codigo. Esto es necesario para poder recibir datos del navegador en formato JSON.
@@ -30,3 +32,21 @@ app.post("/especialidades", (req, res) => {
     res.send("Especialidad recibida"); //envia un mensaje al navegador con el estado 200 (OK) y el mensaje "Especialidad recibida"
 
 }); //ruta para recibir datos del navegador, se ejecuta cuando se accede a localhost:3000/data con el metodo POST
+
+
+//21/4/2026
+
+app.get("/especialidades", async (req, res) => {
+
+    try{
+    const sql = "SELECT * FROM especialidades WHERE activo = 1"; 
+
+    const [especialidades,fields] = await pool.query(sql); 
+
+    console.log(especialidades); 
+    res.status(200).send({'estado': 'ok', 'especialidades': 'especialidades'});
+    }
+    catch(error){
+        console.error(error); //muestra el error en la consola del servidor
+    }
+});
